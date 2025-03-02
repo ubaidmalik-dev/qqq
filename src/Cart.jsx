@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 
+const DELIVERY_CHARGE = 250; // Set your delivery charge
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,7 +49,8 @@ const Cart = () => {
     localStorage.setItem("cart", JSON.stringify(cartData));
   };
 
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const subTotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalPrice = subTotal + DELIVERY_CHARGE; // Adding delivery charge
 
   const handleOrderSubmit = async (e) => {
     e.preventDefault();
@@ -59,6 +62,8 @@ const Cart = () => {
       customerEmail: formData.get("customerEmail"),
       customerPhone: formData.get("customerPhone"),
       customerAddress: formData.get("customerAddress"),
+      subTotal,
+      deliveryCharge: DELIVERY_CHARGE,
       totalPrice,
       products: cartItems.map((item) => ({
         productId: item._id,
@@ -84,20 +89,22 @@ const Cart = () => {
 
       // Send email notification to admin
       emailjs.send(
-        "service_lme0azd",  // Replace with your EmailJS service ID
-        "template_40iexvh", // Replace with your EmailJS template ID
+        "service_lme0azd",  
+        "template_40iexvh", 
         {
           customer_name: orderData.customerName,
           customer_email: orderData.customerEmail,
           customer_phone: orderData.customerPhone,
           customer_address: orderData.customerAddress,
+          order_subtotal: subTotal,
+          delivery_charge: DELIVERY_CHARGE,
           order_total: totalPrice,
           order_details: orderData.products.map(
             (p) => `Product ID: ${p.productId}, Quantity: ${p.quantity}`
           ).join("\n"),
-          admin_email: "jawadali123yahoo@gmail.com", // Replace with admin email
+          admin_email: "jawadali123yahoo@gmail.com",
         },
-        "3BqPO0n5X5DBWItb5" // Replace with your EmailJS public key
+        "3BqPO0n5X5DBWItb5"
       ).then(() => {
         console.log("Admin email sent successfully.");
       }).catch((err) => {
@@ -157,7 +164,11 @@ const Cart = () => {
               <input type="email" name="customerEmail" required placeholder="Email" className="w-full p-2 border rounded-md mb-3" />
               <input type="tel" name="customerPhone" required placeholder="Phone Number" className="w-full p-2 border rounded-md mb-3" />
               <textarea name="customerAddress" required placeholder="Shipping Address" className="w-full p-2 border rounded-md mb-3"></textarea>
+              
+              <p className="text-lg font-bold">Subtotal: {subTotal} RS</p>
+              <p className="text-lg font-bold">Delivery Charges: {DELIVERY_CHARGE} RS</p>
               <p className="text-lg font-bold">Total Price: {totalPrice} RS</p>
+              
               <button type="submit" disabled={orderSubmitting} className="w-full bg-blue-600 text-white py-2 rounded-md mt-4">
                 {orderSubmitting ? "Placing Order..." : "Place Order"}
               </button>
