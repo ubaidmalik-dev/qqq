@@ -95,7 +95,7 @@ const Cart = () => {
           order_details: orderData.products.map(
             (p) => `Product ID: ${p.productId}, Quantity: ${p.quantity}`
           ).join("\n"),
-          admin_email: "fs6700408@gmail.com", // Replace with admin email
+          admin_email: "rouchacielo@gmail.com", // Replace with admin email
         },
         "uozckPVddRqmfBwjg" // Replace with your EmailJS public key
       ).then(() => {
