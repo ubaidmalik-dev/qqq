@@ -84,8 +84,8 @@ const Cart = () => {
 
       // Send email notification to admin
       emailjs.send(
-        "service_o8c3xn6",  // Replace with your EmailJS service ID
-        "template_v4qyx26", // Replace with your EmailJS template ID
+        "service_lme0azd",  // Replace with your EmailJS service ID
+        "template_40iexvh", // Replace with your EmailJS template ID
         {
           customer_name: orderData.customerName,
           customer_email: orderData.customerEmail,
@@ -95,9 +95,9 @@ const Cart = () => {
           order_details: orderData.products.map(
             (p) => `Product ID: ${p.productId}, Quantity: ${p.quantity}`
           ).join("\n"),
-          admin_email: "rouchacielo@gmail.com", // Replace with admin email
+          admin_email: "jawadali123yahoo@gmail.com", // Replace with admin email
         },
-        "Lvg2aCFJfEAExM5kw" // Replace with your EmailJS public key
+        "3BqPO0n5X5DBWItb5" // Replace with your EmailJS public key
       ).then(() => {
         console.log("Admin email sent successfully.");
       }).catch((err) => {
