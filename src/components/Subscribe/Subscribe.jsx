@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import emailjs from "emailjs-com";
 import Banner from "../../assets/website/Terminal.png";
 
 const BannerImg = {
@@ -9,7 +8,7 @@ const BannerImg = {
   backgroundSize: "cover",
   height: "100%",
   width: "100%",
-  position: "relative", // Ensure positioning doesn't block elements
+  position: "relative",
 };
 
 const Subscribe = () => {
@@ -20,7 +19,7 @@ const Subscribe = () => {
     setEmail(e.target.value);
   };
 
-  const handleSubscribe = async (e) => {
+  const handleSubscribe = (e) => {
     e.preventDefault();
 
     if (!email) {
@@ -29,24 +28,12 @@ const Subscribe = () => {
     }
 
     setLoading(true);
-
-    try {
-      const response = await emailjs.send(
-        "service_o8c3xn6", // ✅ Replace with your EmailJS Service ID
-        "template_v4qyx26", // ✅ Replace with your EmailJS Template ID
-        { user_email: email }, // ✅ Must match variable in EmailJS template
-        "Lvg2aCFJfEAExM5kw" // ✅ Replace with your EmailJS Public Key
-      );
-
-      console.log("EmailJS Response:", response);
+    
+    setTimeout(() => {
       alert("✅ Subscription successful! Thank you for subscribing.");
       setEmail("");
-    } catch (error) {
-      console.error("❌ Error sending email:", error);
-      alert(`❌ Failed to subscribe: ${error.text || error.message || "Unknown error"}`);
-    } finally {
       setLoading(false);
-    }
+    }, 1000);
   };
 
   return (
