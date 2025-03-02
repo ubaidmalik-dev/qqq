@@ -5,29 +5,36 @@ import img1 from "../../assets/terminal/person.png"
 const TestimonialData = [
   {
     id: 1,
-    name: "Client Name",
-    text: "Client Feedback",
-    img: img1,
+    name: "Alice Johnson",
+    text: "I absolutely love my new T-shirt! The fabric is soft, the fit is perfect, and the design always gets compliments.",
+    img: "https://randomuser.me/api/portraits/women/1.jpg",
   },
   {
     id: 2,
-    name: "Client Name",
-    text: "Client Feedback",
-    img: img1,
+    name: "David Smith",
+    text: "The quality is excellent and the delivery was super fast. I've never been happier with an online purchase.",
+    img: "https://randomuser.me/api/portraits/men/2.jpg",
   },
   {
     id: 3,
-    name: "Client Name",
-    text: "Client Feedback",
-    img: img1,
+    name: "Emily Brown",
+    text: "These T-shirts are my go-to for casual outings. They’re comfortable, stylish, and built to last.",
+    img: "https://randomuser.me/api/portraits/women/3.jpg",
+  },
+  {
+    id: 4,
+    name: "Michael Thompson",
+    text: "Outstanding customer service and top-notch quality. My new T-shirt exceeded all my expectations!",
+    img: "https://randomuser.me/api/portraits/men/4.jpg",
   },
   {
     id: 5,
-    name: "Client Name",
-    text: "Client Feedback",
-    img: img1,
+    name: "Jessica Lee",
+    text: "I love the creative designs and the premium quality of the T-shirts. They make me feel confident and stylish every day!",
+    img: "https://randomuser.me/api/portraits/women/5.jpg",
   },
 ];
+
 
 const Testimonials = () => {
   var settings = {

@@ -4,6 +4,7 @@ import Image2 from "../../assets/hero/Tshirt.png";
 import Image3 from "../../assets/hero/T-shirt-Model.png"
 import Image4 from "../../assets/hero/T-shirt-Model-2.png"
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 
 const ImageList = [
   {
@@ -69,12 +70,15 @@ const Hero = ({ handleOrderPopup }) => {
                     data-aos-duration="500"
                     data-aos-delay="300"
                   >
+                            <Link to="/products" >
+                    
                     <button
-                      onClick={handleOrderPopup}
+                      // onClick={handleOrderPopup}
                       className="bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-2 px-4 rounded-full"
                     >
                       Order Now
                     </button>
+                    </Link>
                   </div>
                 </div>
                 {/* image section */}

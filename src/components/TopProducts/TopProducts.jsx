@@ -3,6 +3,7 @@ import Img1 from "../../assets/shirt/shirt.png";
 import Img2 from "../../assets/shirt/shirt2.png";
 import Img3 from "../../assets/shirt/shirt3.png";
 import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const ProductsData = [
   {
@@ -45,8 +46,20 @@ const TopProducts = ({ handleOrderPopup }) => {
           </p> */}
         </div>
         {/* Body section */}
+        {/* <Link
+              to="/products"
+              className={`inline-block px-6 duration-200 ${
+                isActive("/products") ? "font-bold text-red-500" : "hover:text-primary"
+              }`}
+            >
+              Product
+            </Link> */}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-20 md:gap-5 place-items-center">
+
           {ProductsData.map((data) => (
+                    <Link to="/products" >
+
             <div
               data-aos="zoom-in"
               className="rounded-2xl bg-white dark:bg-gray-800 hover:bg-black/80 dark:hover:bg-primary hover:text-white relative shadow-xl duration-300 group max-w-[300px]"
@@ -79,8 +92,10 @@ const TopProducts = ({ handleOrderPopup }) => {
                   Order Now
                 </button> */}
               </div>
-            </div>
+            </div> </Link>
           ))}
+             
+
         </div>
       </div>
     </div>
