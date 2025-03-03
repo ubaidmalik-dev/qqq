@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
@@ -18,7 +19,8 @@ const Cart = () => {
         const itemPromises = Object.entries(cartData).map(async ([id, quantity]) => {
           const response = await fetch(`https://mmtrjy-3000.csb.app/products/${id}`);
           if (!response.ok) {
-            throw new Error(Failed to fetch product ${id});
+            throw new Error(`Failed to fetch product ${id}`);
+
           }
           const productData = await response.json();
           return {
@@ -100,7 +102,7 @@ const Cart = () => {
           delivery_charge: DELIVERY_CHARGE,
           order_total: totalPrice,
           order_details: orderData.products.map(
-            (p) => Product ID: ${p.productId}, Quantity: ${p.quantity}
+            ((p) => `Product ID: ${p.productId}, Quantity: ${p.quantity}`)
           ).join("\n"),
           admin_email: "jawadali123yahoo@gmail.com",
         },
@@ -138,7 +140,7 @@ const Cart = () => {
             {cartItems.map((item) => (
               <div key={item._id} className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 text-center">
                 <img
-                  src={https://mmtrjy-3000.csb.app${item.picture}}
+                  src={`https://mmtrjy-3000.csb.app${item.picture}`}
                   alt={item.name}
                   className="w-32 h-32 object-cover rounded-md cursor-pointer"
                 />
