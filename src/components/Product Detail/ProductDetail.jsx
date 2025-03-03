@@ -149,25 +149,6 @@ const ProductDetail = () => {
               )}
             </div>
 
-                        {/* Size Selector */}
-            <div className="flex flex-col mb-4">
-              <label htmlFor="size" className="mb-2 font-medium text-gray-700 dark:text-gray-300">
-                Select your size
-              </label>
-              <select
-                id="size"
-                value={size}
-                onChange={handleSizeChange}
-                className="w-32 p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-              >
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-                <option value="2-XL">2-XL</option>
-              </select>
-            </div>
-
             {/* Quantity Selector */}
             <div className="flex items-center mb-6">
               <label
