@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 
-const DELIVERY_CHARGE = 250; // Set your delivery charge
+const DELIVERY_CHARGE = 250;
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -15,7 +15,7 @@ const Cart = () => {
     const fetchCartItems = async () => {
       try {
         const cartData = JSON.parse(localStorage.getItem("cart")) || {};
-        const itemPromises = Object.entries(cartData).map(async ([id, quantity]) => {
+        const itemPromises = Object.entries(cartData).map(async ([id, { quantity, selectedSize }]) => {
           const response = await fetch(`https://mmtrjy-3000.csb.app/products/${id}`);
           if (!response.ok) {
             throw new Error(`Failed to fetch product ${id}`);
@@ -24,6 +24,7 @@ const Cart = () => {
           return {
             ...productData,
             quantity,
+            selectedSize,
             price: productData.Discounted_price || productData.price,
           };
         });
@@ -43,14 +44,14 @@ const Cart = () => {
     const updatedCart = cartItems.filter((item) => item._id !== itemId);
     setCartItems(updatedCart);
     const cartData = updatedCart.reduce((acc, item) => {
-      acc[item._id] = item.quantity;
+      acc[item._id] = { quantity: item.quantity, selectedSize: item.selectedSize };
       return acc;
     }, {});
     localStorage.setItem("cart", JSON.stringify(cartData));
   };
 
   const subTotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const totalPrice = subTotal + DELIVERY_CHARGE; // Adding delivery charge
+  const totalPrice = subTotal + DELIVERY_CHARGE;
 
   const handleOrderSubmit = async (e) => {
     e.preventDefault();
@@ -68,15 +69,14 @@ const Cart = () => {
       products: cartItems.map((item) => ({
         productId: item._id,
         quantity: item.quantity,
+        selectedSize: item.selectedSize,
       })),
     };
 
     try {
       const response = await fetch("https://mmtrjy-3000.csb.app/api/orders", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderData),
       });
 
@@ -84,13 +84,11 @@ const Cart = () => {
         throw new Error("Failed to place order");
       }
 
-      const result = await response.json();
-      console.log("Order placed successfully:", result);
+      await response.json();
 
-      // Send email notification to admin
       emailjs.send(
-        "service_lme0azd",  
-        "template_40iexvh", 
+        "service_lme0azd",
+        "template_40iexvh",
         {
           customer_name: orderData.customerName,
           customer_email: orderData.customerEmail,
@@ -100,18 +98,13 @@ const Cart = () => {
           delivery_charge: DELIVERY_CHARGE,
           order_total: totalPrice,
           order_details: orderData.products.map(
-            (p) => `Product ID: ${p.productId}, Quantity: ${p.quantity}`
+            (p) => `Product ID: ${p.productId}, Size: ${p.selectedSize}, Quantity: ${p.quantity}`
           ).join("\n"),
           admin_email: "jawadali123yahoo@gmail.com",
         },
         "3BqPO0n5X5DBWItb5"
-      ).then(() => {
-        console.log("Admin email sent successfully.");
-      }).catch((err) => {
-        console.error("Error sending admin email:", err);
-      });
+      );
 
-      // Clear cart and navigate
       localStorage.removeItem("cart");
       setCartItems([]);
       navigate("/thankyou");
@@ -143,12 +136,10 @@ const Cart = () => {
                   className="w-32 h-32 object-cover rounded-md cursor-pointer"
                 />
                 <h2 className="text-xl font-semibold mt-3">{item.name}</h2>
+                <p>Size: {item.selectedSize}</p>
                 <p>Price: <span className="font-bold">{item.price} RS</span></p>
                 <p>Quantity: {item.quantity}</p>
-                <button
-                  onClick={() => removeFromCart(item._id)}
-                  className="mt-3 bg-red-500 text-white px-4 py-2 rounded-md"
-                >
+                <button onClick={() => removeFromCart(item._id)} className="mt-3 bg-red-500 text-white px-4 py-2 rounded-md">
                   Remove
                 </button>
               </div>
@@ -164,11 +155,6 @@ const Cart = () => {
               <input type="email" name="customerEmail" required placeholder="Email" className="w-full p-2 border rounded-md mb-3" />
               <input type="tel" name="customerPhone" required placeholder="Phone Number" className="w-full p-2 border rounded-md mb-3" />
               <textarea name="customerAddress" required placeholder="Shipping Address" className="w-full p-2 border rounded-md mb-3"></textarea>
-              
-              <p className="text-lg font-bold">Subtotal: {subTotal} RS</p>
-              <p className="text-lg font-bold">Delivery Charges: {DELIVERY_CHARGE} RS</p>
-              <p className="text-lg font-bold">Total Price: {totalPrice} RS</p>
-              
               <button type="submit" disabled={orderSubmitting} className="w-full bg-blue-600 text-white py-2 rounded-md mt-4">
                 {orderSubmitting ? "Placing Order..." : "Place Order"}
               </button>
