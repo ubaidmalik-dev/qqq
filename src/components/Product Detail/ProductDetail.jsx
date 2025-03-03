@@ -8,7 +8,6 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState("M"); // Default size
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [isAdded, setIsAdded] = useState(false);
 
@@ -16,7 +15,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await fetch(`https://mmtrjy-3000.csb.app/products/${id}`);
+        const response = await fetch(https://mmtrjy-3000.csb.app/products/${id});
         if (!response.ok) {
           throw new Error("Failed to fetch product details");
         }
@@ -48,11 +47,6 @@ const ProductDetail = () => {
     setQuantity(Math.max(1, parseInt(e.target.value)));
   };
 
-  // Handle Size Change
-  const handleSizeChange = (e) => {
-    setSize(e.target.value);
-  };
-
   // Add to Cart Functionality
   const handleAddToCart = () => {
     if (!product) return;
@@ -60,9 +54,8 @@ const ProductDetail = () => {
     // Get existing cart from localStorage or initialize empty object
     const cart = JSON.parse(localStorage.getItem("cart")) || {};
 
-    // Store product ID, quantity, and size
-    const cartItemKey = `${product._id}-${size}`;
-    cart[cartItemKey] = (cart[cartItemKey] || 0) + quantity;
+    // Update quantity for this product ID (using product._id for consistency)
+    cart[product._id] = (cart[product._id] || 0) + quantity;
 
     // Save updated cart to localStorage
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -76,15 +69,32 @@ const ProductDetail = () => {
   };
 
   if (loading)
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading...
+      </div>
+    );
   if (error)
-    return <div className="min-h-screen flex items-center justify-center text-red-500">Error: {error}</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-500">
+        Error: {error}
+      </div>
+    );
   if (!product)
-    return <div className="min-h-screen flex items-center justify-center">Product not found!</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Product not found!
+      </div>
+    );
 
   const discountedPrice = product.Discounted_price || product.price;
-  const hasDiscount = product.Discounted_price && product.Discounted_price < product.price;
-  const discountPercentage = hasDiscount ? Math.round(((product.price - product.Discounted_price) / product.price) * 100) : 0;
+  const hasDiscount =
+    product.Discounted_price && product.Discounted_price < product.price;
+  const discountPercentage = hasDiscount
+    ? Math.round(
+        ((product.price - product.Discounted_price) / product.price) * 100
+      )
+    : 0;
 
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100">
@@ -93,7 +103,7 @@ const ProductDetail = () => {
           {/* Left Side - Product Image */}
           <div className="flex-1 relative">
             <img
-              src={`https://mmtrjy-3000.csb.app${product.picture}`}
+              src={https://mmtrjy-3000.csb.app${product.picture}}
               alt={product.name}
               className="w-full h-auto object-cover rounded-md"
             />
@@ -109,48 +119,42 @@ const ProductDetail = () => {
           {/* Right Side - Product Info */}
           <div className="flex-1 md:ml-8">
             <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
-            <p className="text-sm mb-4 text-gray-600 dark:text-gray-400">{product.description}</p>
+            <p className="text-sm mb-4 text-gray-600 dark:text-gray-400">
+              {product.description}
+            </p>
 
             {/* Category */}
             <div className="mb-4">
-              <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">Category</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">{product.category}</p>
+              <h3 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                Category
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {product.category}
+              </p>
             </div>
 
             {/* Price */}
             <div className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">
               {hasDiscount ? (
                 <>
-                  <span className="line-through text-red-500 mr-2">{product.price.toFixed(2)} RS</span>
-                  <span className="text-green-500">{discountedPrice.toFixed(2)} RS</span>
+                  <span className="line-through text-red-500 mr-2">
+                    {product.price.toFixed(2)} RS
+                  </span>
+                  <span className="text-green-500">
+                    {discountedPrice.toFixed(2)} RS
+                  </span>
                 </>
               ) : (
                 <span>{product.price.toFixed(2)} RS</span>
               )}
             </div>
 
-            {/* Size Selector */}
-            <div className="flex flex-col mb-4">
-              <label htmlFor="size" className="mb-2 font-medium text-gray-700 dark:text-gray-300">
-                Select your size
-              </label>
-              <select
-                id="size"
-                value={size}
-                onChange={handleSizeChange}
-                className="w-32 p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-              >
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-                <option value="2-XL">2-XL</option>
-              </select>
-            </div>
-
             {/* Quantity Selector */}
             <div className="flex items-center mb-6">
-              <label htmlFor="quantity" className="mr-2 font-medium text-gray-700 dark:text-gray-300">
+              <label
+                htmlFor="quantity"
+                className="mr-2 font-medium text-gray-700 dark:text-gray-300"
+              >
                 Quantity
               </label>
               <input
