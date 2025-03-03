@@ -75,8 +75,9 @@ const Navbar = () => {
       {/* Sliding Discount Bar */}
       <div className="w-full bg-red-500 text-white text-center py-2 overflow-hidden">
         <marquee scrollamount="5" className="text-sm font-semibold">
-          🎉 Limited Time Offer: Get 20% OFF on all products! {" "}
-          <span className="font-bold">#SALE20</span> 🎉
+          🎉 Limited Time Offer: Get 30% OFF on all products! {" "}
+          <span className="font-bold">#SALE30</span> 🎉 
+          Dilevery charges <span className="font-bold">250RS</span>
         </marquee>
       </div>
 
