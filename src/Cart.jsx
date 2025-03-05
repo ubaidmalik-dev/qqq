@@ -185,7 +185,7 @@ const Cart = () => {
 
               <p className="text-lg font-bold">Subtotal: {subTotal} RS</p>
               <p className="text-lg font-bold">Delivery Charges: {DELIVERY_CHARGE} RS</p>
-              <p className="text-lg font-bold">Total Price: {totalPrice} RS</p>
+              <p className="text-lg font-bold">Total Price: {totalPrice} Rs</p>
 
               <button type="submit" disabled={orderSubmitting} className="w-full bg-blue-600 text-white py-2 rounded-md mt-4">
                 {orderSubmitting ? "Placing Order..." : "Place Order"}
