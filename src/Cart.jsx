@@ -181,11 +181,12 @@ const Cart = () => {
               <input type="text" name="customerName" required placeholder="Full Name" className="w-full p-2 text-black border rounded-md mb-3" />
               <input type="email" name="customerEmail" required placeholder="Email" className="w-full p-2 text-black border rounded-md mb-3" />
               <input type="tel" name="customerPhone" required placeholder="Phone Number" className="w-full p-2 text-black border rounded-md mb-3" />
+              <input type="text" name="customerCity" required placeholder="City" className="w-full p-2 text-black border rounded-md mb-3" />
               <textarea name="customerAddress" required placeholder="Shipping Address" className="w-full p-2 text-black border rounded-md mb-3"></textarea>
 
               <p className="text-lg font-bold">Subtotal: {subTotal} RS</p>
               <p className="text-lg font-bold">Delivery Charges: {DELIVERY_CHARGE} RS</p>
-              <p className="text-lg font-bold">Total Price: {totalPrice} Rs</p>
+              <p className="text-lg font-bold">Total Price: {totalPrice} RS</p>
 
               <button type="submit" disabled={orderSubmitting} className="w-full bg-blue-600 text-white py-2 rounded-md mt-4">
                 {orderSubmitting ? "Placing Order..." : "Place Order"}
