@@ -106,8 +106,8 @@ const Cart = () => {
 
       try {
         await emailjs.send(
-          "service_o8c3xn6",
-          "template_v4qyx26",
+          "service_lme0azd",
+          "template_40iexvh",
           {
             customer_name: orderData.customerName,
             customer_email: orderData.customerEmail,
@@ -119,9 +119,9 @@ const Cart = () => {
             order_details: orderData.products
               .map((p) => `Product ID: ${p.productId}, Size: ${p.size}, Quantity: ${p.quantity}`)
               .join("\n"),
-            admin_email: "rouchacielo@gmail.com",
+            admin_email: "jawadali123yahoo@gmail.com",
           },
-          "Lvg2aCFJfEAExM5kw"
+          "3BqPO0n5X5DBWItb5"
         );
 
         console.log("Admin email sent successfully.");
