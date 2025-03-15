@@ -77,6 +77,7 @@ const Cart = () => {
       customerName: formData.get("customerName"),
       customerEmail: formData.get("customerEmail"),
       customerPhone: formData.get("customerPhone"),
+      customerCity: formData.get("customerCity"),
       customerAddress: formData.get("customerAddress"),
       subTotal,
       deliveryCharge: DELIVERY_CHARGE,
