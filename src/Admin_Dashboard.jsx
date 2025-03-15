@@ -90,6 +90,7 @@ const About_Page = () => {
                     <p><span className="font-semibold">Phone:</span> {order.customerPhone}</p>
                     <p><span className="font-semibold">Address:</span> {order.customerAddress}</p>
                     <p><span className="font-semibold">Total Price:</span> {order.totalPrice} RS</p>
+                    <p><span className="font-semibold">Size:</span> {order.products[0]?.size || "N/A"}</p> {/* 🔹 Moved here after Total Price */}
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold mb-2">Products:</h3>
@@ -100,14 +101,12 @@ const About_Page = () => {
                             <img src={`https://mmtrjy-3000.csb.app${prod.productId.picture}`} alt={prod.productId.name} className="w-16 h-16 object-cover rounded mr-2" />
                             <div>
                               <p className="font-semibold">{prod.productId.name}</p>
-                              <p>Size: {prod.size}</p>
                               <p>Quantity: {prod.quantity}</p>
                             </div>
                           </>
                         ) : (
                           <div>
                             <p className="font-semibold">Product ID: {prod.productId}</p>
-                            <p name="size">Size: {prod.size}</p>
                             <p>Quantity: {prod.quantity}</p>
                           </div>
                         )}
