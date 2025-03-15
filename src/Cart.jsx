@@ -113,6 +113,7 @@ const Cart = () => {
             customer_email: orderData.customerEmail,
             customer_phone: orderData.customerPhone,
             customer_address: orderData.customerAddress,
+            customer_city: orderData.customerCity,
             order_subtotal: subTotal,
             delivery_charge: DELIVERY_CHARGE,
             order_total: totalPrice,
