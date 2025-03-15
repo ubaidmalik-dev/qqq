@@ -107,7 +107,7 @@ const Cart = () => {
       try {
         await emailjs.send(
           "service_o8c3xn6",
-          "template_v4qyx26",
+          "template_ruk6852",
           {
             customer_name: orderData.customerName,
             customer_email: orderData.customerEmail,
