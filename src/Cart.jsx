@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from "emailjs-com";
 
-const DELIVERY_CHARGE = 250;
+const DELIVERY_CHARGE = 200;
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);

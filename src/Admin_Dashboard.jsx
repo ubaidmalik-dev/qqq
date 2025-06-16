@@ -102,12 +102,14 @@ const About_Page = () => {
                             <div>
                               <p className="font-semibold">{prod.productId.name}</p>
                               <p>Quantity: {prod.quantity}</p>
+                              <p>Size: {prod.size}</p>
                             </div>
                           </>
                         ) : (
                           <div>
                             <p className="font-semibold">Product ID: {prod.productId}</p>
                             <p>Quantity: {prod.quantity}</p>
+                            <p>Size: {prod.size}</p>
                           </div>
                         )}
                       </div>
